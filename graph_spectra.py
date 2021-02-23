@@ -23,20 +23,24 @@ def mean_horizontal_brightness(image):
 
 
 # Configuration
-input_file = "spectra.png"
+input_file = "sun.png"
 
 
 # Code
 spectra = im.open(input_file, "r")
 intensity = mean_horizontal_brightness(spectra)
 
-wavelength = np.linspace(0, 1000, len(intensity))
+wavelength = np.linspace(400, 660, len(intensity))
+
+N = 50
+smoothed_intensity = np.convolve(intensity, np.ones(N)/N, mode='valid')
+wavelength2 = np.linspace(400, 660, len(smoothed_intensity))
 
 # Blue is at the top of the image and thus is first in the list.
 plt.plot(wavelength, intensity, "-", label="Raw data")
-#plt.plot(wavelength, smoothed_intensity, "r-", label="Smoothed data")
+plt.plot(wavelength2, smoothed_intensity, "r-", label="Smoothed data")
 plt.legend()
 plt.xlabel("Wavelength, λ / nm")
 plt.ylabel("Intensity / Arbitrary units")
 plt.title("Graph of intensity against wavelength of a spectra.")
-plt.savefig("graph.pdf",  dpi=300)
+plt.savefig(input_file+".pdf",  dpi=300)
