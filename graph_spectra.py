@@ -4,6 +4,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image as im
+import sys
 
 
 # Functions
@@ -23,7 +24,7 @@ def mean_horizontal_brightness(image):
 
 
 # Configuration
-input_file = "sun.png"
+input_file = sys.argv[1]
 
 
 # Code
